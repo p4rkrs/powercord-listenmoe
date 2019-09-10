@@ -64,8 +64,6 @@ module.exports = class listenmoe extends Plugin {
   async startPlugin () {
     await connect();
 
-    await waitFor('.container-3baos1'); // Waits Discord to load before autostart
-
     this.heartbeatInterval = heartbeatInterval;
     this.audio = document.createElement('audio');
     this.audio.src = 'https://listen.moe/stream'; // Feel free to change it to kpop if you want.
