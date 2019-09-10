@@ -1,0 +1,11 @@
+{
+  "name": "ListenMoe",
+  "version": "1.0.0",
+  "description": "Add listen.moe supports to Discord!",
+  "author": "Kiru",
+  "license": "MIT",
+  "repo": "https://github.com/dying/listenmoe-powercord",
+  "dependencies": [
+    "pc-commands"
+  ]
+}
