@@ -4,7 +4,7 @@
   "description": "Add listen.moe supports to Discord!",
   "author": "Kiru",
   "license": "MIT",
-  "repo": "https://github.com/dying/listenmoe-powercord",
+  "repo": "https://github.com/dying/pc-listenmoe",
   "dependencies": [
     "pc-commands"
   ]

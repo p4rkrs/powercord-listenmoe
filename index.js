@@ -68,44 +68,97 @@ module.exports = class listenmoe extends Plugin {
 
     this.heartbeatInterval = heartbeatInterval;
     this.audio = document.createElement('audio');
-    this.audio.autoplay = true;
     this.audio.src = 'https://listen.moe/stream'; // Feel free to change it to kpop if you want.
-    this.audio.volume = 0.5;
-
+    this.audio.volume = 1;
+    this.paused_data = null;
 
     this.registerCommand(
-      'lvolume',
+      'lplay',
       [],
-      'Change the volume.',
-      '{c} [0-1]',
-      (args) => {
-        if (args > 1 || args < 0) {
+      'Play playback of listen.moe',
+      '{c}',
+      () => {
+          if (!this.audio.paused) {
+            return {
+              send: false,
+              result: `Playback is already playing!`
+            }
+          }
+          this.audio.play();
           return {
             send: false,
-            result: 'You need to specify a number between 0 and 1.'
-          };
-        }
-        this.audio.volume = args;
+            result: `Currently playing: ${data.song.title} by ${data.song.artists[0].nameRomaji || data.song.artists[0].name}`
+          }
       }
     );
 
     this.registerCommand(
       'lpause',
       [],
-      'Pause the music.',
+      'Pause playback of listen.moe',
       '{c}',
       () => {
-        this.audio.pause();
+        if (this.audio.paused) {
+          return {
+            send: false,
+            result: 'The playback is already paused!'
+          }
+        } else {
+          this.paused_data = data;
+          this.audio.pause();
+          return {
+            send: false,
+            result: `The playback has been paused.`
+          }
+        }
       }
     );
 
     this.registerCommand(
       'lresume',
       [],
-      'Resume the music.',
+      'Resume playback of listen.moe',
       '{c}',
       () => {
-        this.audio.play();
+        if (!this.audio.paused) {
+          return {
+            send: false,
+            result: 'The playback is not paused!'
+          }
+        } else {
+          this.audio.play();
+          return {
+            send: false,
+            result: `Currently playing: ${this.paused_data.song.title} by ${this.paused_data.song.artists[0].nameRomaji || this.paused_data.song.artists[0].name} (Before the stream was paused)`
+          }
+        }
+      }
+    );
+
+
+    this.registerCommand(
+      'lvolume',
+      [],
+      'Change the volume.',
+      '{c} <0-100>',
+      (args) => {
+        if (isNaN(args) || args > 100 || args < 0) return {
+            send: false,
+            result: 'You need to specify a number between 0 and 100.'
+          };
+        
+        if (args) {
+          this.audio.volume = args / 100;
+          return {
+            send: false,
+            result: `Volume has been set to ${args}%`
+          }
+        } else {
+          return {
+            send: false,
+            result: `Current volume is: ${this.audio.volume * 100}%`
+          }
+        }
       }
     );
 
@@ -116,7 +169,7 @@ module.exports = class listenmoe extends Plugin {
       '{c}',
       () => ({
         	send: false,
-        result: `${data.song.title} by ${data.song.artists[0].nameRomaji || data.song.artists[0].name}`
+          result: `Currently playing: ${data.song.title} by ${data.song.artists[0].nameRomaji || data.song.artists[0].name}`
       })
     );
   }

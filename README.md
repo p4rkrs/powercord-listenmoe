@@ -1,4 +1,4 @@
-# listenmoe-powercord
+# pc-listenmoe
 Powercord plugin for listen.moe
 
 ## Installation
@@ -8,10 +8,12 @@ Powercord plugin for listen.moe
 4. Profit
 
 ## Commands
-``lresume`` - Resume listen.moe playback
+``lplay`` - Start listen.moe playback.
 
-``lpause`` - Pause listen.moe playback
+``lresume`` - Resume listen.moe playback.
 
-``lvolume`` - Change listen.moe volume
+``lpause`` - Pause listen.moe playback (it will delays the stream)
 
-``lnp`` - Gives you what's curerntly playing.
+``lvolume`` - Change listen.moe volume.
+
+``lnp`` - Gives you what's curerntly playing. (In live)
