@@ -8,9 +8,9 @@ Powercord plugin for listen.moe
 4. Profit
 
 ## Commands
-``nresume`` - Resume listen.moe playback
+``lresume`` - Resume listen.moe playback
 
-``npause`` - Pause listen.moe playback
+``lpause`` - Pause listen.moe playback
 
 ``lvolume`` - Change listen.moe volume
 
