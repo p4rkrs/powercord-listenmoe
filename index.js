@@ -79,13 +79,28 @@ module.exports = class listenmoe extends Plugin {
           if (!this.audio.paused) {
             return {
               send: false,
-              result: `Playback is already playing!`
+              result: 'Playback is already playing!'
             }
           }
           this.audio.play();
           return {
             send: false,
             result: `Currently playing: ${data.song.title} by ${data.song.artists[0].nameRomaji || data.song.artists[0].name}`
+          }
+      }
+    );
+
+    this.registerCommand(
+      'lstop',
+      [],
+      'Stop completly playback of listen.moe.',
+      '{c}',
+      () => {
+          this.audio.currentTime = 0;
+          this.audio.pause();
+          return {
+            send: false,
+            result: 'The playback has been stopped.'
           }
       }
     );
@@ -106,7 +121,7 @@ module.exports = class listenmoe extends Plugin {
           this.audio.pause();
           return {
             send: false,
-            result: `The playback has been paused.`
+            result: 'The playback has been paused.'
           }
         }
       }
@@ -140,12 +155,11 @@ module.exports = class listenmoe extends Plugin {
       'Change the volume.',
       '{c} <0-100>',
       (args) => {
-        if (isNaN(args) || args > 100 || args < 0) return {
+        if (args[0]) {
+          if (isNaN(args) || args > 100 || args < 0) return {
             send: false,
             result: 'You need to specify a number between 0 and 100.'
           };
-        
-        if (args) {
           this.audio.volume = args / 100;
           return {
             send: false,
@@ -163,7 +177,7 @@ module.exports = class listenmoe extends Plugin {
     this.registerCommand(
       'lnp',
       [],
-      'See what\'s now playing',
+      'See what\'s currently playing',
       '{c}',
       () => ({
         	send: false,
